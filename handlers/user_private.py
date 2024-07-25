@@ -1,8 +1,11 @@
 from aiogram import F, types, Router
 from aiogram.filters import CommandStart, Command, or_f
+from filters.chat_types import ChatTypeFilter
 
+from kbds import reply
 
 user_private_router = Router()
+user_private_router.message.filter(ChatTypeFilter(['private']))
 
 DESCRIPTION = 'Я виртуальный помощник, бот для учебного проекта'
 
@@ -10,11 +13,12 @@ DESCRIPTION = 'Я виртуальный помощник, бот для уче�
 # Реагирует на комманду /start
 @user_private_router.message(CommandStart())
 async def start_cmd(message: types.Message) -> None:
-    await message.answer('Привет, я виртуальный помощник')
+    await message.answer(
+        'Привет, я виртуальный помощник', reply_markup=reply.start_kb)
 
 
 # Меню
-@user_private_router.message(or_f(Command('menu')), F.text.lower() == 'меню')
+@user_private_router.message(or_f(Command('menu'), F.text.lower() == 'меню'))
 async def menu_cmd(message: types.Message) -> None:
     await message.answer('Вот меню:')
 
