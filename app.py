@@ -10,6 +10,8 @@ from dotenv import find_dotenv, load_dotenv
 
 from handlers.user_private import user_private_router
 from handlers.user_group import user_group_router
+from handlers.admin_private import admin_router
+
 from common.bot_cmds_list import private
 
 load_dotenv(find_dotenv())
@@ -20,6 +22,8 @@ ALLOWED_UPDATES = ['message', 'edited_message']
 
 bot = Bot(token=os.getenv('TOKEN'),
           default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot.my_admins_list = []
+
 dp = Dispatcher()
 
 dp.include_router(user_private_router)

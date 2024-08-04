@@ -9,7 +9,7 @@ from kbds import reply
 user_private_router = Router()
 user_private_router.message.filter(ChatTypeFilter(['private']))
 
-DESCRIPTION = 'Я виртуальный помощник, бот для учебного проекта'
+DESCRIPTION = 'Я виртуальный помощник, бот для учебного проекта "Пиццерия'
 
 
 # Реагирует на комманду /start
@@ -17,14 +17,15 @@ DESCRIPTION = 'Я виртуальный помощник, бот для уче�
 async def start_cmd(message: types.Message) -> None:
     await message.answer(
         'Привет, я виртуальный помощник',
-        reply_markup=reply.start_kb3.as_markup(
-            resize_keyboard=True,
-            input_field_placeholder='Что Вас интересует?'
-        ))
-    # await message.answer(
-    #     'Тестовая клава с локацией и телефоном',
-    #     reply_markup=reply.test_kb
-    # )
+        reply_markup=reply.get_keyboard(
+            'Меню',
+            'О магазине',
+            'Варианты оплаты',
+            'Варианты доставки',
+            placeholder='Что Вас интересует?',
+            sizes=(2, 2,)
+        ),
+    )
 
 
 # Меню
